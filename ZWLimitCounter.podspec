@@ -10,6 +10,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '7.0'
   s.source  = {:git => 'https://github.com/wangziwu/ZWLimitCounter.git',:tag => s.version}
   s.source_files  = 'ZWLimitCounter/*.{h,m}'
-  s.resources     = 'ZWLimitCounter/*.{png,xib,nib,bundle}'
   s.requires_arc  = true
 end
