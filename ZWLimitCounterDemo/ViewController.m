@@ -22,10 +22,15 @@
     [self configSecndTextView];
 }
 - (void)configFirstTextView{
-    self.firstTextView.zw_limitCount = 100;
+    self.firstTextView.layer.borderWidth = 1;
+    self.firstTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.firstTextView.zw_limitCount = 30;
 }
 - (void)configSecndTextView{
-    UITextView *secondTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 200, [UIScreen mainScreen].bounds.size.width-20, 100)];
+    CGRect rect = CGRectMake(10, 200, [UIScreen mainScreen].bounds.size.width-20, 100);
+    UITextView *secondTextView = [[UITextView alloc] initWithFrame:rect];
+    secondTextView.layer.borderWidth = 1;
+    secondTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     secondTextView.zw_limitCount = 20;
     [self.view addSubview:secondTextView];
 }
