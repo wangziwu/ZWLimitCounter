@@ -39,10 +39,9 @@ static char labHeightKey;
         self.contentInset = textContainerInset;
         CGFloat x = CGRectGetMinX(self.frame)+self.layer.borderWidth;
         CGFloat y = CGRectGetMaxY(self.frame)-self.contentInset.bottom-self.layer.borderWidth;
-        CGFloat width = CGRectGetWidth(self.frame)-self.zw_labMargin-self.layer.borderWidth*2;
+        CGFloat width = CGRectGetWidth(self.bounds)-self.layer.borderWidth*2;
         CGFloat height = self.zw_labHeight;
         self.zw_inputLimitLabel.frame = CGRectMake(x, y, width, height);
-        
         if ([self.superview.subviews containsObject:self.zw_inputLimitLabel]) {
             return;
         }
@@ -81,7 +80,17 @@ static char labHeightKey;
     if (self.text.length>self.zw_limitCount) {
         self.text = [self.text substringToIndex:self.zw_limitCount];
     }
-    self.zw_inputLimitLabel.text = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)self.text.length,(long)self.zw_limitCount];
+    NSString *showText = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)self.text.length,(long)self.zw_limitCount];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString
+                                              alloc] initWithString:showText];
+    NSUInteger length = [showText length];
+    NSMutableParagraphStyle *
+    style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    style.tailIndent = -self.zw_labMargin; //设置与尾部的距离
+    style.alignment = NSTextAlignmentRight;//靠右显示
+    [attrString addAttribute:NSParagraphStyleAttributeName value:style
+                       range:NSMakeRange(0, length)];
+    self.zw_inputLimitLabel.attributedText = attrString;
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"layer.borderWidth"]) {
