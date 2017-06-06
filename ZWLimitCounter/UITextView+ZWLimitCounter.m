@@ -15,12 +15,12 @@ static char labHeightKey;
 + (void)load {
     [super load];
     method_exchangeImplementations(class_getInstanceMethod(self.class, NSSelectorFromString(@"layoutSubviews")),
-                                   class_getInstanceMethod(self.class, @selector(swizzling_layoutSubviews)));
+                                   class_getInstanceMethod(self.class, @selector(zwlimitCounter_swizzling_layoutSubviews)));
     method_exchangeImplementations(class_getInstanceMethod(self.class, NSSelectorFromString(@"dealloc")),
-                                   class_getInstanceMethod(self.class, @selector(swizzled_dealloc)));
+                                   class_getInstanceMethod(self.class, @selector(zwlimitCounter_swizzled_dealloc)));
 }
 #pragma mark - swizzled
-- (void)swizzled_dealloc {
+- (void)zwlimitCounter_swizzled_dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     @try {
         [self removeObserver:self forKeyPath:@"layer.borderWidth"];
@@ -29,10 +29,10 @@ static char labHeightKey;
     } @finally {
         
     }
-    [self swizzled_dealloc];
+    [self zwlimitCounter_swizzled_dealloc];
 }
-- (void)swizzling_layoutSubviews {
-    [self swizzling_layoutSubviews];
+- (void)zwlimitCounter_swizzling_layoutSubviews {
+    [self zwlimitCounter_swizzling_layoutSubviews];
     if (self.zw_limitCount) {
         UIEdgeInsets textContainerInset = self.textContainerInset;
         textContainerInset.bottom = self.zw_labHeight;
