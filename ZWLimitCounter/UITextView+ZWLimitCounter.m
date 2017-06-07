@@ -81,6 +81,7 @@ static char labHeightKey;
         self.text = [self.text substringToIndex:self.zw_limitCount];
     }
     NSString *showText = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)self.text.length,(long)self.zw_limitCount];
+    self.zw_inputLimitLabel.text = showText;
     NSMutableAttributedString *attrString = [[NSMutableAttributedString
                                               alloc] initWithString:showText];
     NSUInteger length = [showText length];
