@@ -77,8 +77,13 @@ static char labHeightKey;
 }
 #pragma mark - update
 - (void)updateLimitCount{
-    if (self.text.length>self.zw_limitCount) {
-        self.text = [self.text substringToIndex:self.zw_limitCount];
+    if (self.text.length > self.zw_limitCount) {
+        UITextRange *markedRange = [self markedTextRange];
+        if (markedRange) {
+            return;
+        }
+        NSRange range = [self.text rangeOfComposedCharacterSequenceAtIndex:self.zw_limitCount];
+        self.text = [self.text substringToIndex:range.location];
     }
     NSString *showText = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)self.text.length,(long)self.zw_limitCount];
     self.zw_inputLimitLabel.text = showText;
