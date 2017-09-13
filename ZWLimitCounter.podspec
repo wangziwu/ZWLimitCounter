@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name    = 'ZWLimitCounter'
-  s.version = '0.0.3'
+  s.version = '0.0.4'
   s.summary = '快速实现UITextView限制并统计字数。'
   s.homepage  = 'https://github.com/wangziwu/ZWLimitCounter'
   s.license = 'MIT'

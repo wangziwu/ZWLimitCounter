@@ -24,6 +24,7 @@ static char labHeightKey;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     @try {
         [self removeObserver:self forKeyPath:@"layer.borderWidth"];
+        [self removeObserver:self forKeyPath:@"text"];
     } @catch (NSException *exception) {
         
     } @finally {
@@ -99,7 +100,8 @@ static char labHeightKey;
     self.zw_inputLimitLabel.attributedText = attrString;
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    if ([keyPath isEqualToString:@"layer.borderWidth"]) {
+    if ([keyPath isEqualToString:@"layer.borderWidth"]||
+        [keyPath isEqualToString:@"text"]) {
         [self updateLimitCount];
     }
 }
@@ -117,6 +119,7 @@ static char labHeightKey;
                                                      name:UITextViewTextDidChangeNotification
                                                    object:self];
         [self addObserver:self forKeyPath:@"layer.borderWidth" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:nil];
         [self configTextView];
     }
     return label;
